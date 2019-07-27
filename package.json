@@ -1,0 +1,27 @@
+{
+  "name": "api-project",
+  "version": "1.0.0",
+  "description": "CC9 API Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "node tests/initialize.js && mocha tests/test.js && yarn lint",
+    "lint": "eslint --fix .",
+    "start": "node index.js",
+    "make": "knex --knexfile server/models/knexfile.js migrate:make",
+    "migrate": "knex migrate:latest --knexfile server/models/knexfile.js",
+    "rollback": "knex migrate:rollback --knexfile server/models/knexfile.js ",
+    "precommit": "pretty-quick --staged"
+  },
+  "author": "Matthew Cook",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "knex": "^0.19.1",
+    "pg": "^7.12.0",
+    "validator": "^11.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
