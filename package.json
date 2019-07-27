@@ -7,7 +7,9 @@
     "test": "node tests/initialize.js && mocha tests/test.js && yarn lint",
     "lint": "eslint --fix .",
     "start": "node index.js",
-    "make": "knex --knexfile server/models/knexfile.js migrate:make",
+    "makeM": "knex --knexfile server/models/knexfile.js migrate:make",
+    "makeS": "knex --knexfile server/models/knexfile.js seed:make",
+    "seed": "knex seed:run --knexfile server/models/knexfile.js",
     "migrate": "knex migrate:latest --knexfile server/models/knexfile.js",
     "rollback": "knex migrate:rollback --knexfile server/models/knexfile.js ",
     "precommit": "pretty-quick --staged"
