@@ -4,6 +4,9 @@ const queries = require('../controllers/queries');
 
 // GET routes
 router.get('/', (req, res) => {
+    res.sendFile('index.html', { root: __dirname + '../../../client' });
+});
+router.get('/brands', (req, res) => {
     queries.getBrandList().then((motorcycles) => res.send(motorcycles));
 });
 router.get('/:brand', (req, res) => {
@@ -20,9 +23,11 @@ router.post('/:brand', (req, res) => {
 
 // PUT routes
 router.put('/:brand/:model', (req, res) => {
-    queries.update(req.params, req.body).then((model) => res.send(model));
+    queries.updateModel(req.params, req.body).then((model) => res.send(model));
 });
 
 // DELETE routes
-
+router.delete('/:brand/:model', (req, res) => {
+    queries.deleteModel(req.params).then(() => res.send({deleted: true}));
+});
 module.exports = router;

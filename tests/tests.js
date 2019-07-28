@@ -3,7 +3,7 @@ const knex = require("knex")(config);
 const chai = require('chai');
 const should = chai.should();
 const chaiHttp = require('chai-http');
-const server = 'http://localhost:3000/api/v1/motorcycles';
+const server = 'http://localhost:3000/api/v1';
 
 chai.use(chaiHttp);
 
@@ -18,7 +18,7 @@ describe('motorcycles', () => {
 
     it('should return all brands', (done) => {
         chai.request(server)
-        .get('/')
+        .get('/brands')
         .end((err, res) => {
         res.should.have.status(200);
         res.should.be.json;
@@ -62,7 +62,7 @@ describe('models', () => {
         done();
         });
     });
-})
+});
 
 describe('specific model', () => {
     it('should return Yamaha R1',  (done) => {
@@ -80,7 +80,7 @@ describe('specific model', () => {
         done();
         });
     });
-})
+});
 
 describe('add/update model', () => {
     it('should add Yamaha R7 to the Yamaha model list',  (done) => {
@@ -128,4 +128,18 @@ describe('add/update model', () => {
         done();
         });
     });
-})
+});
+
+describe('delete model', () => {
+    it('should delete Yamaha R7',  (done) => {
+        chai.request(server)
+        .delete('/yamaha/r7')
+        .end((err, res) => {
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.deleted.should.be.true;
+        done();
+        });
+    });
+});
+

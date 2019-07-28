@@ -47,12 +47,18 @@ module.exports = {
         .then(() => this.getBrandModels(brand.toLowerCase()));
     },
 
-    update(params, reqBody) {
+    updateModel(params, reqBody) {
         return knex('model')
         .whereRaw('lower(model.model) = ?', [params.model.toLowerCase()])
         .update(reqBody)
         .then(() => {
             return this.getModel(params);
         });
+    },
+
+    deleteModel(params) {
+        return knex('model')
+        .whereRaw('lower(model.model) = ?', [params.model.toLowerCase()])
+        .del();
     }
 }
