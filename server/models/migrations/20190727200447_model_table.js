@@ -7,6 +7,8 @@ exports.up = function(knex, Promise) {
         t.integer("brand_id")
         .notNullable(); // add a not-null constraint to this column
 
+        t.foreign("brand_id").references("brand.id");
+
         t.string("model")
         .unique() // add a unique constraint to this column
         .notNullable(); // add a not-null constraint to this column

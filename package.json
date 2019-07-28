@@ -4,7 +4,7 @@
   "description": "CC9 API Project",
   "main": "index.js",
   "scripts": {
-    "test": "node tests/initialize.js && mocha tests/test.js && yarn lint",
+    "test": "node tests/initialize.js && mocha tests/tests.js",
     "lint": "eslint --fix .",
     "start": "node index.js",
     "makeM": "knex --knexfile server/models/knexfile.js migrate:make",
@@ -24,6 +24,9 @@
     "validator": "^11.1.0"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^6.2.0",
     "nodemon": "^1.19.1"
   }
 }
