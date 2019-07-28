@@ -1,6 +1,17 @@
 const config = require("../models/knexConfig");
 const knex = require("knex")(config.db);
 
+function brandId(value) {
+        switch(value.toLowerCase()) {
+            case 'yamaha':
+                return 1;
+            case 'suzuki':
+                return 2;
+            case 'honda':
+                return 3;
+        }
+}
+
 module.exports = {
     getBrandList() {
         return knex('brand');
@@ -24,21 +35,9 @@ module.exports = {
     },
 
     createModel(brand, reqBody) {
-        let brandId;
-        switch(brand.toLowerCase()) {
-            case 'yamaha':
-                brandId = 1;
-              break;
-            case 'suzuki':
-                brandId = 2;
-              break;
-            case 'honda':
-                brandId = 3;
-        }
-
-        return knex("model")
+        return knex('model')
         .insert({
-            brand_id: brandId, 
+            brand_id: brandId(brand), 
             model: reqBody.model, 
             size: reqBody.size, 
             side_r: reqBody.side_r, 
@@ -46,5 +45,14 @@ module.exports = {
             display: reqBody.display
         })
         .then(() => this.getBrandModels(brand.toLowerCase()));
+    },
+
+    update(params, reqBody) {
+        return knex('model')
+        .whereRaw('lower(model.model) = ?', [params.model.toLowerCase()])
+        .update(reqBody)
+        .then(() => {
+            return this.getModel(params);
+        });
     }
 }

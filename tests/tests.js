@@ -82,7 +82,7 @@ describe('specific model', () => {
     });
 })
 
-describe('add model', () => {
+describe('add/update model', () => {
     it('should add Yamaha R7 to the Yamaha model list',  (done) => {
         chai.request(server)
         .post('/yamaha')
@@ -102,6 +102,29 @@ describe('add model', () => {
         res.body[2].model.should.equal('R7');
         res.body[0].should.have.property('brand');
         res.body[0].brand.should.equal('Yamaha');
+        done();
+        });
+    });
+
+    it('should update Yamaha R7 engine size',  (done) => {
+        chai.request(server)
+        .put('/yamaha/r7')
+        .send({
+            "model": "R7",
+            "size": "749cc",
+            "side_r": "url",
+            "action": "url",
+            "display": "url"
+        })
+        .end((err, res) => {
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.a('array');
+        res.body.length.should.equal(1);
+        res.body[0].should.have.property('model');
+        res.body[0].model.should.equal('R7');
+        res.body[0].should.have.property('size');
+        res.body[0].size.should.equal('749cc');
         done();
         });
     });

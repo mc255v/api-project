@@ -16,8 +16,12 @@ router.get('/:brand/:model', (req, res) => {
 // POST routes
 router.post('/:brand', (req, res) => {
     queries.createModel(req.params.brand, req.body).then((models) => res.send(models));
-})
-// PATCH routes
+});
+
+// PUT routes
+router.put('/:brand/:model', (req, res) => {
+    queries.update(req.params, req.body).then((model) => res.send(model));
+});
 
 // DELETE routes
 
